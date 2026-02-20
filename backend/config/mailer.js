@@ -25,7 +25,7 @@ transporter.verify((err, success) => {
 export const sendVerificationMail = async (email, token) => {
 
     await transporter.sendMail({
-        from: 'Authentification API  <wazabi64000@gmail.com>',
+        from: `Authentification API  <${process.env.EMAIL_SENDER || ""}>`,
         to: email,
         subject: 'Confirmez votre email',
         html: `<h2>   Bienvenue ${email} ! </h2>
@@ -38,7 +38,7 @@ export const sendVerificationMail = async (email, token) => {
 export const sendResetPasswordEmail = async (email, token) => {
 
     await transporter.sendMail({
-        from: 'Verification API  <wazabi64000@gmail.com>',
+        from: `Verification API  <${process.env.EMAIL_SENDER || ""}>`,
         to: email,
         subject: 'Rénitialisation de la passwordé',
         html: `<h2>   Bienvenue ${email} ! </h2>
