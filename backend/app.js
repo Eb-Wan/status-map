@@ -1,8 +1,8 @@
 import express from "express"
 import authRoutes from './routes/auth.routes.js'
+import geoRoutes from './routes/geo.routes.js'
 
 import 'dotenv/config'
-import { authMiddleware, authorize } from "./middleware/auth.middleware.js"
 
 const app = express()
 
@@ -10,6 +10,6 @@ const app = express()
 app.use(express.json())
 
 app.use('/api/auth', authRoutes)
-app.get('/',authMiddleware, authorize(['ADMIN', 'USER']), (req, res) => res.send('Mon API fonctionne bien '))
+app.use('/api/geo', geoRoutes)
 
 export default app

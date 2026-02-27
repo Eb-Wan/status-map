@@ -26,17 +26,25 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `users`
 --
+CREATE DATABASE IF NOT EXISTS `auth_db`;
+
+USE `auth_db`;
 
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
+  `username` varchar(64) NOT NULL UNIQUE,
   `email` varchar(191) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
   `role` enum('USER','ADMIN','MODERATOR') NOT NULL DEFAULT 'USER',
+  `pos` POINT DEFAULT NULL,
+  `mood` VARCHAR(32) NOT NULL DEFAULT 'NEUTRAL',
+  `status` VARCHAR(256) NOT NULL DEFAULT '',
   `is_verified` tinyint(1) NOT NULL DEFAULT 0,
   `verify_token` varchar(36) DEFAULT NULL,
   `reset_token` varchar(36) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  SPATIAL INDEX(`pos`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
