@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import * as Location from "expo-location";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
+import MapView from "react-native-maps";
 
 const MapPage = () => {
   const [location, setLocation] = useState(null);
@@ -21,14 +22,29 @@ const MapPage = () => {
     getCurrentLocation();
   }, []);
 
-  let text = "waiting...";
+  let text = "waiting..";
   if (errorMsg) {
     text = errorMsg;
-  } else {
-    text = JSON.stringify(location);
   }
 
-  return <View style={styles.container}></View>;
+  return (
+    <View style={styles.container}>
+      {location ? (
+        <MapView
+          initialRegion={{
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05,
+          }}
+          style={styles.map}
+          showsUserLocation
+        ></MapView>
+      ) : (
+        <Text>{text}</Text>
+      )}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -36,7 +52,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    padding: 20,
+  },
+  map: {
+    width: "100%",
+    height: "100%",
   },
 });
 

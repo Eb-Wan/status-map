@@ -1,5 +1,11 @@
+import { View, Text } from "react-native";
+
 const LoginPage = () => {
-  return <div>LoginPage</div>;
+  return (
+    <View>
+      <Text>LoginPage</Text>
+    </View>
+  );
 };
 
 export default LoginPage;

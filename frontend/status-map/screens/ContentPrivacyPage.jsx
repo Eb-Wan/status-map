@@ -1,5 +1,11 @@
+import { View, Text } from "react-native";
+
 const ContentPrivacyPage = () => {
-  return <div>ContentPrivacyPage</div>;
+  return (
+    <View>
+      <Text>ContentPrivacyPage</Text>
+    </View>
+  );
 };
 
 export default ContentPrivacyPage;

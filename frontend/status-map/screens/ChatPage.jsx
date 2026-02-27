@@ -1,5 +1,11 @@
+import { View, Text } from "react-native";
+
 const ChatPage = () => {
-  return <div>ChatPage</div>;
+  return (
+    <View>
+      <Text>ChatPage</Text>
+    </View>
+  );
 };
 
 export default ChatPage;
