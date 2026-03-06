@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "status-map",
+    "slug": "status-map",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.statusmap.app"
+    },
+    "android": {
+      "package": "com.statusmap.app"
+    },
+    "plugins": [
+      "expo-asset"
+    ]
+  }
+}
