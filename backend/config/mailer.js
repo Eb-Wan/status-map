@@ -32,14 +32,13 @@ export const sendMail = async (subject, text, html, to) => {
 };
 
 export const sendVerificationMail = async (email, token) => {
-
     await transporter.sendMail({
         from: `Authentification API  <${process.env.EMAIL_SENDER || ""}>`,
         to: email,
         subject: 'Confirmez votre email',
         html: `<h2>   Bienvenue ${email} ! </h2>
         <p> Merci pour votre inscription , veuillez clique sur le lien ci-dessous pour vérifier cotre email:  </p> <br/>
-        <a href="http://localhost:5000/api/auth/verify?token=${token}">Vérifier mon email</a>`
+        <a href="http://${process.env.HOST ?? "localhost"}/api/auth/verify?token=${token}">Vérifier mon email</a>`
     })
 }
 
@@ -52,7 +51,7 @@ export const sendResetPasswordEmail = async (email, token) => {
         subject: 'Rénitialisation de la passwordé',
         html: `<h2>   Bienvenue ${email} ! </h2>
         <p> Cliquez sur le lien pour rénitialiser votre mot de passe :  </p> <br/>
-        <a href="http://localhost:5000/api/auth/reset-password-request?token=${token}">rénitialiser votre mot de passe </a>`
+        <a href="http://${process.env.HOST ?? "localhost"}/api/auth/reset-password-request?token=${token}">rénitialiser votre mot de passe </a>`
     })
 }
 
