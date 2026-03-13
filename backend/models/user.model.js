@@ -8,7 +8,7 @@ export const createUser = async (
     verifyToken
     ) => {
     const [result] = await db.query(
-        "INSERT INTO users (email, username, password_hash, verify_token) VALUES ( ?, ?, ?, ? ) ",
+        "INSERT INTO users (email, username, password_hash, verify_token, pos) VALUES ( ?, ?, ?, ? , POINT(0, 0)) ",
         [email, username, passwordHash, verifyToken ],
     );
 
@@ -56,7 +56,7 @@ export const findUsersByPos =  async (lat, long, rad) => {
 
     const [rows] = await db.query(`
         SELECT
-        id, username, mood, status, pos,
+        id, username, mood, status, pos
         FROM users 
         WHERE ST_X(pos) BETWEEN (? - ?) AND (? + ?)
         AND ST_Y(pos) BETWEEN (? - ?) AND (? + ?)

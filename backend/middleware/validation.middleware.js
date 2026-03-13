@@ -3,6 +3,7 @@ import { z } from "zod";
 export const validateRegister = (req, res, next) => {
     const schema = z.object({
         email: z.email(),
+        username: z.string().min(6).max(32),
         password: z.string().min(6),
         confirmPassword: z.string().min(6),
     });
@@ -57,14 +58,15 @@ export const validateResetPasswordRequest = (req, res, next) => {
 
 export const validateGeoGet = (req, res, next) => {
     const schema = z.object({
-        pos: z.object({
-            lat: z.number().min(-90).max(90),
-            long: z.number().min(-90).max(90),
-            rad: z.number().min(5).max(1000)
-        })
+        lat: z.number().min(-90).max(90),
+        long: z.number().min(-90).max(90),
+        rad: z.number().min(5).max(1000)
     });
 
     try {
+        for (const [key, value] of Object.entries(req.params)) {
+            req.params[key] = parseFloat(value);
+        }
         schema.parse(req.params);
         next();
     } catch (error) {
@@ -76,10 +78,8 @@ export const validateGeoGet = (req, res, next) => {
 
 export const validateGeoPos = (req, res, next) => {
     const schema = z.object({
-        pos: z.object({
-            lat: z.number().min(-90).max(90),
-            long: z.number().min(-90).max(90)
-        })
+        lat: z.number().min(-90).max(90),
+        long: z.number().min(-90).max(90)
     });
 
     try {
@@ -91,4 +91,3 @@ export const validateGeoPos = (req, res, next) => {
         .json({ message: error.issues.map((err) => err.message).join(", ") });
     }
 };
-

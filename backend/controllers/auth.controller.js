@@ -21,7 +21,11 @@ import {
 
 export const register = async (req, res) => {
   try {
-    const { email, password, username } = req.body;
+    const { email, password, confirmPassword, username } = req.body;
+
+    if (password != confirmPassword)
+      return res.status(400).json({ message: "Les mots de passes sont différents" });
+
     const existing = await findUserByEmail(email);
     if (existing)
       return res.status(400).json({ message: "Email deja utilisé" });
@@ -29,7 +33,7 @@ export const register = async (req, res) => {
     const passwordHash = await argon2.hash(password);
     const verifyToken = uuid4();
 
-    await createUser(email, username, passwordHash, verifyToken);
+    await createUser(email, username, passwordHash, verifyToken, );
 
     await sendVerificationMail(email, verifyToken);
 

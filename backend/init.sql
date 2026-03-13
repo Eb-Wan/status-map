@@ -26,9 +26,6 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `users`
 --
-CREATE DATABASE IF NOT EXISTS `auth_db`;
-
-USE `auth_db`;
 
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
@@ -36,7 +33,7 @@ CREATE TABLE `users` (
   `email` varchar(191) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
   `role` enum('USER','ADMIN','MODERATOR') NOT NULL DEFAULT 'USER',
-  `pos` POINT DEFAULT NULL,
+  `pos` POINT NOT NULL,
   `mood` VARCHAR(32) NOT NULL DEFAULT 'NEUTRAL',
   `status` VARCHAR(256) NOT NULL DEFAULT '',
   `is_verified` tinyint(1) NOT NULL DEFAULT 0,
@@ -51,10 +48,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password_hash`, `role`, `is_verified`, `verify_token`, `reset_token`, `created_at`, `updated_at`) VALUES
-(12, 'tihoh60038@aixind.com', '$argon2id$v=19$m=65536,t=3,p=4$BbYcVJGrnF7fgHRyGpZ3BQ$cS2sB01UQurx+zNwujJeTCusm/qWGvuAIYBZA8aFrjc', 'USER', 1, NULL, NULL, '2026-02-03 09:58:48', '2026-02-03 16:44:05'),
-(13, 'leo@moi.cheh', '$argon2id$v=19$m=65536,t=3,p=4$eX9eU45mSUUwYxy7XIuRTg$g0eVkt1Vgxpz7rSc9lDiPtqWYaknhdA6xgaXSo5wsG0', 'USER', 0, 'ce979afb-7858-4a50-9001-406861ba5f34', NULL, '2026-02-17 13:18:51', '2026-02-17 13:18:51'),
-(14, 'vofilok313@amiralty.com', '$argon2id$v=19$m=65536,t=3,p=4$01KdE+Cneoy0M1fEqHn3PQ$2d2dclkNGLjMk+fqI/qfTDp0Vv6dZcIt25aifSmL9wY', 'USER', 0, 'ba0126a4-6ca4-481a-869f-daaae49cfdad', NULL, '2026-02-17 13:19:30', '2026-02-17 13:19:30');
+INSERT INTO `users` (`id`, `username`, `email`, `password_hash`, `role`, `pos`, `is_verified`, `verify_token`, `reset_token`, `created_at`, `updated_at`) VALUES
+(12, 'tihoh', 'tihoh60038@aixind.com', '$argon2id$v=19$m=65536,t=3,p=4$BbYcVJGrnF7fgHRyGpZ3BQ$cS2sB01UQurx+zNwujJeTCusm/qWGvuAIYBZA8aFrjc', 'USER', POINT(0, 0), 1, NULL, NULL, '2026-02-03 09:58:48', '2026-02-03 16:44:05'),
+(13, 'leo', 'leo@moi.cheh', '$argon2id$v=19$m=65536,t=3,p=4$eX9eU45mSUUwYxy7XIuRTg$g0eVkt1Vgxpz7rSc9lDiPtqWYaknhdA6xgaXSo5wsG0', 'USER', POINT(0, 0), 0, 'ce979afb-7858-4a50-9001-406861ba5f34', NULL, '2026-02-17 13:18:51', '2026-02-17 13:18:51'),
+(14, 'vofilok313', 'vofilok313@amiralty.com', '$argon2id$v=19$m=65536,t=3,p=4$01KdE+Cneoy0M1fEqHn3PQ$2d2dclkNGLjMk+fqI/qfTDp0Vv6dZcIt25aifSmL9wY', 'USER', POINT(0, 0), 0, 'ba0126a4-6ca4-481a-869f-daaae49cfdad', NULL, '2026-02-17 13:19:30', '2026-02-17 13:19:30');
 
 --
 -- Indexes for dumped tables
