@@ -1,26 +1,35 @@
 import nodemailer from "nodemailer";
 
-import "dotenv/config";
-
-export const transporter = nodemailer.createTransport({
-  host: process.env.BREVO_SMTP_HOST,
-  port: Number(process.env.BREVO_SMTP_PORT),
-  secure: false,
-  auth: {
-    user: process.env.BREVO_SMTP_USER,
-    pass: process.env.BREVO_SMTP_PASS,
-  },
+const transporter = nodemailer.createTransport({
+    service: process.env.SMTP_SERVICE,
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    auth: {
+        user: process.env.EMAIL_SENDER,
+        pass: process.env.SMTP_PASS
+    },
 });
-
-
-
 
 transporter.verify((err, success) => {
   if (err) console.error("Erreur SMTP ", err.message)
-    else console.log('SMTP conncté')
- 
-})
+    else console.log('SMTP connecté');
+});
 
+
+export const sendMail = async (subject, text, html, to) => {
+    try {
+        await transporter.sendMail({
+            from: "SignEm <"+process.env.EMAIL_SENDER+">",
+            to: to.toString(),
+            subject,
+            text,
+            html
+        });
+        return true;
+    } catch (error) {
+        return error;
+    } 
+};
 
 export const sendVerificationMail = async (email, token) => {
 
